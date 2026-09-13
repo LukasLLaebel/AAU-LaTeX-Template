@@ -15,3 +15,4 @@ as well as inspired by the typst template made by [Sebastian Lorenzen](https://g
 
 ## TO-DO's
 - Finish description (Zotero, other design roads)
+- Auto title resizing
