@@ -6,7 +6,7 @@
 
 \begin{tikzpicture}[remember picture,overlay]
 
-    %%%%% AAU BACKGROUND %%%%%
+    %%%%% AAU Background %%%%%
     \node[
         anchor=south west,
         inner sep=0pt
@@ -17,7 +17,7 @@
         ]{frontpage-setup/img/AAU_BOELGER_RGB-05.png}
     };
 
-    %%%%% TITLE AREA %%%%%
+    %%%%% Title Area %%%%%
     \coordinate (textboxcenter) at
         ([yshift=-0.25\paperheight]current page.north);
     
@@ -42,7 +42,7 @@
         rectangle
         ++(14.4cm,7cm);
     
-    %%%%% TEXT %%%%%
+    %%%%% text %%%%%
     \node[
         text=white,
         align=center,
@@ -63,7 +63,7 @@
         {\large\bfseries \reporttype}
     };
 
-    %%%%% AAU CIRCLE %%%%%
+    %%%%% AAU circle %%%%%
     \coordinate (circlecenter) at ([yshift=0.25\paperheight]current page.south);
 
     % Define Circle
@@ -76,7 +76,7 @@
 
         \node at ([yshift=0.25cm]circlecenter) {
             \includegraphics[
-                width=3cm
+                width=2.8cm
             ]{frontpage-setup/img/AAU_CENTER_WHITE_UK.png}
         };
     \end{scope}
