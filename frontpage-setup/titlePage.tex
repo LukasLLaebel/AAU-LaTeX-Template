@@ -1,0 +1,65 @@
+\begin{tikzpicture}[remember picture,overlay]
+
+      % Make all text slightly larger by default
+      \large
+    
+      % Logo / image at top-left
+      \node[anchor=north west] at ([xshift=2cm,yshift=-2cm]current page.north west) {%
+        \includegraphics[width=6cm]{frontpage-setup/img/aau_logo_en.pdf}%
+      };
+    
+      % Top-right info
+      \node[anchor=north east, align=right, text width=5cm] at
+      ([xshift=-2cm,yshift=-2cm]current page.north east) {%
+        \large \textbf{\studyfield}\\
+        \university\\
+        \texttt{http://www.aau.dk}
+      };
+    
+      % Abstract block on the right
+      \node[anchor=north east, align=left, text width=8cm] at ([xshift=-2cm,yshift=-8cm]current page.north east) {%
+        \Large \textbf{Abstract}\\[0.5em]
+        \large \abstract
+      };
+    
+      % Text lines in the left middle area
+      \node[anchor=north west, align=left, text width=7cm] at ([xshift=2cm,yshift=-8cm]current page.north west) {%
+        \Large \textbf{Title:}\\
+        \Large \textit{\title}\\[1em]
+    
+        \large \textbf{Theme:}\\
+        \theme\\[0.8em]
+    
+        \large \textbf{Project Period:}\\
+        \period\\[0.8em]
+    
+        \large \textbf{Project Group:}\\
+        \groupmail\\[0.8em]
+    
+        \large \textbf{Participant(s):}\\
+        \memberA\\
+        \memberB\\
+        \memberC\\
+        \memberD\\
+        \memberE\\
+        \memberF\\
+        \memberG\\[0.8em]
+    
+        \large \textbf{Supervisor(s):}\\
+        \supervisorA\\
+        \supervisorB\\[0.8em]
+    
+        \large \textbf{Page Numbers:}\\
+        \pageref{bib:references.bib}\bigskip\par\vspace{0.8em}
+    
+        \large \textbf{Date of Completion:}\\
+        \today
+      };
+  
+    \node[anchor=south, align=center, text width=23cm] at 
+    ([yshift=2cm] current page.south) {%
+        \textit{The content of this report is freely available, but publication (with reference) may only be pursued due to agreement with the author.}
+    };
+\end{tikzpicture}
+
+\cleardoublepage

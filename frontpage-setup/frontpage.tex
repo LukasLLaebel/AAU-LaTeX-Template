@@ -1,0 +1,86 @@
+\input{setup/colors}
+\input{setup/Frontpage-defines}
+
+\clearpage
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture,overlay]
+
+    %%%%% AAU BACKGROUND %%%%%
+    \node[
+        anchor=south west,
+        inner sep=0pt
+    ] at (current page.south west) {
+        \includegraphics[
+            width=\paperwidth,
+            height=\paperheight
+        ]{frontpage-setup/img/AAU_BOELGER_RGB-05.png}
+    };
+
+    %%%%% TITLE AREA %%%%%
+    \coordinate (textboxcenter) at
+        ([yshift=-0.25\paperheight]current page.north);
+    
+    % Background
+    \fill[
+        AAUPurple,
+        rounded corners=6mm
+    ]
+    % Ofset (width, height)
+        (textboxcenter) ++(-7.5cm,-3.1cm)
+        rectangle
+        ++(15cm,7.6cm);
+    
+    % inner border
+    \draw[
+        white,
+        line width=0.5pt,
+        rounded corners=5mm
+    ]
+    % Ofset (width, height)
+        (textboxcenter) ++(-7.2cm,-2.8cm)
+        rectangle
+        ++(14.4cm,7cm);
+    
+    %%%%% TEXT %%%%%
+    \node[
+        text=white,
+        align=center,
+        text width=20cm
+    ] at ([yshift=0.4cm]textboxcenter) {%
+        {\Huge\bfseries
+            \linespread{0.8}\selectfont
+            \title
+        }\\[0.35cm]
+    
+        {\Large\itshape \subtitle}\\[0.5cm]
+    
+        % Divider
+        \rule{7cm}{0.5pt}\\[0.5cm]
+    
+        {\large \study}\\[0.35cm]
+        {\normalsize \groupmail}\\[0.5cm]
+        {\large\bfseries \reporttype}
+    };
+
+    %%%%% AAU CIRCLE %%%%%
+    \coordinate (circlecenter) at ([yshift=0.25\paperheight]current page.south);
+
+    % Define Circle
+    \fill[AAUPurple]
+        (circlecenter) circle [radius=2.25cm];
+
+    % Clip logo into it
+    \begin{scope}
+        \clip (circlecenter) circle [radius=2.25cm];
+
+        \node at ([yshift=0.25cm]circlecenter) {
+            \includegraphics[
+                width=3cm
+            ]{frontpage-setup/img/AAU_CENTER_WHITE_UK.png}
+        };
+    \end{scope}
+
+\end{tikzpicture}
+
+\clearpage

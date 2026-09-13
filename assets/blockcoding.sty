@@ -1,0 +1,535 @@
+%% blockcoding.sty - Custom LaTeX package by Lukas Leander Læbel
+%%
+%% This package provides personal formatting and command settings for code blocks using listings.
+%% License: LaTeX Project Public License (LPPL)
+%% See: http://www.latex-project.org/lppl.txt
+%%
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{assets/blockcoding}[2025/04/25 v0.01 My personal LaTeX package]
+
+% Required packages
+\RequirePackage{listings}
+\RequirePackage{chngcntr}
+\RequirePackage{listingsutf8}
+\RequirePackage{xcolor} 
+\RequirePackage{float} 
+\RequirePackage{caption}
+
+% Rename "Listing"
+\renewcommand{\lstlistingname}{Listing}
+\renewcommand{\lstlistlistingname}{List of Listings}
+
+% Number listings per chapter
+\AtBeginDocument{%
+    \counterwithin{lstlisting}{chapter}%
+}
+% Caption styling
+\captionsetup[lstlisting]{
+  font=small,
+  labelfont=bf
+}
+
+
+% Default colors
+\definecolor{codebg}{RGB}{30,30,30} 			% Black background
+\definecolor{codefg}{RGB}{240,240,240}
+\definecolor{stringcolor}{RGB}{80,200,120}
+\definecolor{commentcolor}{RGB}{130,130,130}
+\definecolor{keywordcolor}{RGB}{255,130,80}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{operatorcolor}{RGB}{173, 216, 230}
+\definecolor{specialfuncColor}{RGB}{255, 105, 180}
+\definecolor{functionscolor}{RGB}{50, 170, 230}
+\definecolor{commonfuncs}{RGB}{255, 255, 0}
+\definecolor{parameterstyle}{RGB}{144, 238, 144}
+\definecolor{classcolor}{RGB}{200, 0, 128}
+
+% Define JavaScript language
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, switch, if, in, while, do, else, case, break, for, get, post, put, delete, send, /json/, JSON, path, fs, use, body, undefined, render},
+  keywordstyle=\color{keywordcolor}\bfseries,
+  morekeywords=[2]{class, boolean, throw, implements, import, this,async,await, const, let, var, expect,from, export},
+  keywordstyle=[2]\color{specialfuncColor}\bfseries,
+  morekeywords=[3]{getFiles, getFolder, renderRolesPage,fileURLToPath, createRole, getRolesFromFolder, getUsersWithRole, assignRoleToUser, editRoleName, removeRoleFromUser, deleteRole, getAllFiles, getUsersFromFile, getFolderOwner, addUser, removeUser, authenticateUser, requireAuth, logout, getFoldersForUser, validateRoleCreation, getAllData, saveAllData, findShareById, getFilesByFolderId, getFolderById, getAllPermissions, getAllShareFiles, getUsersByShareId, addUserToShare, removeUserFromShare, getAllUsers, syncUserFolders, searchFolders, mockSignedIn, initialize, assignPermissionsToRole, setShareOwner, assignRoleToShare, assignUserToShare, getData, handleCreateFolder, loadFiles, createFiles, popUp, closePopUp, loadUsers, createUsers, loadFolderSearch, loadAuth, createTable, rolesController, rolesRouter, afterEach, beforeEach, express, extended,toHaveProperty,request, toBe, toContain, maxDistanceRatio, normalize},
+  keywordstyle=[3]\color{functionscolor}\bfseries,
+  morekeywords=[4]{%
+    router,writeFileSync, res, req, next, app,unlinkSync, json,urlencoded,stringify, existsSync, copyFileSync,message, dirname, meta, url ,success, fetch, setTimeout, clearTimeout, setInterval, clearInterval, parseInt, parseFloat, isNaN, isFinite,
+    encodeURIComponent, decodeURIComponent, structuredClone, push, pop, shift, unshift, splice, slice,
+    forEach, map, filter, reduce, reduceRight, flat, flatMap, includes, indexOf, lastIndexOf, find,
+    findIndex, findLast, findLastIndex, some, every, sort, toSorted, reverse, toReversed, join, concat,
+    at, toString, valueOf, toUpperCase, toLowerCase, trim, trimStart, trimEnd, startsWith, endsWith,
+    split, replace, replaceAll, match, matchAll, padStart, padEnd, repeat, charAt, toFixed, toPrecision,
+    Map, Set, set, get, has, delete, clear, keys, values, entries, Promise, then, finally, call, apply,
+    bind, RegExp, test, exec, URL, URLSearchParams, alert, prompt, confirm, options, length%
+  },
+  keywordstyle=[4]\color{commonfuncs}\bfseries,
+  morekeywords=[5]{%
+    folders, searchText, s%
+  },
+  keywordstyle=[5]\color{parameterstyle}\bfseries,
+  morekeywords=[6]{%
+    String%
+  },
+  keywordstyle=[6]\color{classcolor}\bfseries,
+  identifierstyle=\color{codefg},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{commentcolor}\itshape,
+  stringstyle=\color{stringcolor},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% JavaScript style
+\lstdefinestyle{js}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small\color{codefg},
+  keywordstyle=\color{keywordcolor}\bfseries,
+  keywordstyle=[2]\color{specialfuncColor}\bfseries,
+  keywordstyle=[3]\color{functionscolor}\bfseries,
+  keywordstyle=[4]\color{commonfuncs}\bfseries,
+  keywordstyle=[5]\color{parameterstyle}\bfseries,
+  stringstyle=\color{stringcolor},
+  commentstyle=\color{commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=JavaScript,
+  literate=*%
+    {=}{{{\color{operatorcolor}{=}}}}1%
+    {=>}{{{\color{operatorcolor}{=>}}}}2%
+    {==}{{{\color{operatorcolor}{===}}}}3%
+    {!==}{{{\color{operatorcolor}{!==}}}}3%
+    {===}{{{\color{operatorcolor}{==}}}}2%
+    {!=}{{{\color{operatorcolor}{!=}}}}2%
+    {&&}{{{\color{operatorcolor}{\&\&}}}}2%
+    {||}{{{\color{operatorcolor}{||}}}}2%
+    {.}{{{\color{operatorcolor}{.}}}}1%
+    {(}{{{\color{gray}{(}}}}1%
+    {)}{{{\color{gray})}}}1% Does not worK?
+    {[}{{{\color{gray}{[}}}}1%
+    {]}{{{\color{gray}{]}}}}1%
+    {\{}{{{\color{gray}{\{}}}}1%
+    {\}}{{{\color{gray}{\}}}}}1%
+    {,}{{{\color{operatorcolor}{,}}}}1%
+    {;}{{{\color{operatorcolor}{;}}}}1%
+    {!}{{{\color{operatorcolor}{!}}}}1%
+    {?}{{{\color{operatorcolor}{?}}}}1%
+    {:}{{{\color{operatorcolor}{:}}}}1%
+    {0}{{{\color{keywordcolor}0}}}1%
+    {1}{{{\color{keywordcolor}1}}}1%
+    {2}{{{\color{keywordcolor}2}}}1%
+    {3}{{{\color{keywordcolor}3}}}1%
+    {4}{{{\color{keywordcolor}4}}}1%
+    {5}{{{\color{keywordcolor}5}}}1%
+    {6}{{{\color{keywordcolor}6}}}1%
+    {7}{{{\color{keywordcolor}7}}}1%
+    {8}{{{\color{keywordcolor}8}}}1%
+    {9}{{{\color{keywordcolor}9}}}1%
+}
+
+\lstdefinelanguage{grid-file}{
+  keywords={r},
+  keywordstyle=\color{grid-road}\bfseries,
+  ndkeywords={o},
+  ndkeywordstyle=\color{grid-object}\bfseries,
+  morekeywords=[2]{n,k},
+  keywordstyle=[2]\color{grid-ev}\bfseries,
+  morekeywords=[3]{h},
+  keywordstyle=[3]\color{grid-handicap}\bfseries,
+  morekeywords=[4]{s,m,l},
+  keywordstyle=[4]\color{grid-bay}\bfseries,
+  sensitive=true,
+  morecomment=[l]{\%},
+  commentstyle=\color{commentcolor}\itshape
+}
+
+% Define mtest C framework language with highlighted functions and macros
+\lstdefinelanguage{mtest-C}{
+  keywords={void, int, char, float, double, return, if, else, for, while, do, switch, case, break, struct, typedef, unsigned, signed, const, static, extern},
+  keywordstyle=\color{C-keywordcolor}\bfseries,
+  % Test Case Definition - Vibrant Purple
+  ndkeywords={TEST_CASE, MAIN_RUN_TESTS},
+  ndkeywordstyle=\color{mtestapi-primary}\bfseries,
+  % Core assertion and check macros - Vibrant Teal/Turquoise
+  morekeywords=[2]{CHECK, CHECK_, REQUIRE, REQUIRE_, MESSAGE, MESSAGE_, CHECK_FAIL, REQUIRE_FAIL, CHECK_TRUE, CHECK_FALSE, REQUIRE_TRUE, REQUIRE_FALSE},
+  keywordstyle=[2]\color{mtestapi-secondary}\bfseries,
+  % Integer comparison macros - Vibrant Lime Green
+  morekeywords=[3]{CHECK_EQ_INT, CHECK_NE_INT, CHECK_LT_INT, CHECK_GT_INT, CHECK_LE_INT, CHECK_GE_INT, REQUIRE_EQ_INT, REQUIRE_NE_INT, REQUIRE_LT_INT, REQUIRE_GT_INT, REQUIRE_LE_INT, REQUIRE_GE_INT, TRUE, FALSE},
+  keywordstyle=[3]\color{mtestapi-tertiary}\bfseries,
+  % Double/Float comparison macros - Vibrant Gold/Yellow
+  morekeywords=[4]{CHECK_EQ_DOUBLE, CHECK_NE_DOUBLE, CHECK_LT_DOUBLE, CHECK_GT_DOUBLE, CHECK_LE_DOUBLE, CHECK_GE_DOUBLE, REQUIRE_EQ_DOUBLE, REQUIRE_NE_DOUBLE, REQUIRE_LT_DOUBLE, REQUIRE_GT_DOUBLE, REQUIRE_LE_DOUBLE, REQUIRE_GE_DOUBLE},
+  keywordstyle=[4]\color{mtestapi-quaternary}\bfseries,
+  % Character and String comparison macros - Vibrant Coral/Red
+  morekeywords=[5]{CHECK_EQ_CHAR, CHECK_NE_CHAR, REQUIRE_EQ_CHAR, REQUIRE_NE_CHAR, CHECK_EQ_STRING, CHECK_NE_STRING, REQUIRE_EQ_STRING, REQUIRE_NE_STRING},
+  keywordstyle=[5]\color{mtestapi-quinary}\bfseries,
+  % Utility macros - Vibrant Orange
+  morekeywords=[6]{RUN_TESTS},
+  keywordstyle=[6]\color{mtestapi-senary}\bfseries,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{C-commentcolor}\itshape,
+  stringstyle=\color{C-stringcolor},
+  sensitive=true,
+  identifierstyle=\color{C-codefg}
+}
+
+% Python style
+\lstdefinestyle{py}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small\color{codefg},
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  commentstyle=\color{commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=Python
+}
+
+% Java style
+\definecolor{java-codebg}{RGB}{30,30,30} 			% Black background
+\definecolor{java-codefg}{RGB}{240,240,240}
+\definecolor{java-stringcolor}{RGB}{255,217,102}
+\definecolor{java-commentcolor}{RGB}{130,130,130}
+\definecolor{java-keywordcolor}{RGB}{200,38,38}
+
+\lstdefinestyle{java}{
+  backgroundcolor=\color{java-codebg},
+  basicstyle=\ttfamily\small\color{java-codefg},
+  keywordstyle=\color{java-keywordcolor}\bfseries,
+  stringstyle=\color{java-stringcolor},
+  commentstyle=\color{java-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=Java
+}
+
+
+
+
+% C style
+\definecolor{C-codebg}{rgb}{0.95, 0.95, 0.95}
+\definecolor{C-codefg}{rgb}{0.1, 0.1, 0.1}
+\definecolor{C-keywordcolor}{rgb}{0, 0, 0.7}
+\definecolor{C-commentcolor}{rgb}{0, 0.5, 0}
+\definecolor{C-stringcolor}{rgb}{0.5, 0, 0}
+
+\lstdefinestyle{c}{
+  backgroundcolor=\color{C-codebg},
+  basicstyle=\ttfamily\small\color{C-codefg},
+  keywordstyle=\color{C-keywordcolor}\bfseries,
+  stringstyle=\color{C-stringcolor},
+  commentstyle=\color{C-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=C,
+  literate={\%}{{{\%}}}1
+}
+
+% Grid file character colors
+\definecolor{grid-road}{RGB}{80, 80, 80}        % Dark gray - Roads (r)
+\definecolor{grid-object}{RGB}{139, 0, 0}       % Red - Objects (o)
+\definecolor{grid-ev}{RGB}{184, 134, 11}        % Dark yellow - EV (n, k)
+\definecolor{grid-handicap}{RGB}{0, 123, 255}   % Blue - Handicap (h)
+\definecolor{grid-bay}{RGB}{34, 139, 34}        % Dark green - Bays (s, m, l)
+
+
+\lstdefinestyle{grid}{
+  backgroundcolor=\color{C-codebg},
+  basicstyle=\ttfamily\small\color{C-codefg},
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=grid-file,
+  literate={\%}{{{\%}}}1
+}
+
+% mtest - Minimalist C Unit Testing Framework style
+\definecolor{mtest-codebg}{rgb}{0.98, 0.97, 0.96}
+\definecolor{mtest-codefg}{rgb}{0.05, 0.05, 0.05}
+\definecolor{mtest-keywordcolor}{rgb}{0.2, 0.2, 0.7}
+\definecolor{mtest-commentcolor}{rgb}{0.4, 0.4, 0.4}
+\definecolor{mtest-stringcolor}{rgb}{0.6, 0.1, 0.1}
+
+% mtest Macro Colors - Fresh and vibrant color palette
+\definecolor{mtestapi-primary}{RGB}{147, 51, 234}      % Vibrant light blue - TEST_CASE & MAIN_RUN_TESTS
+\definecolor{mtestapi-secondary}{RGB}{6, 182, 212}     % Vibrant Teal - CHECK/REQUIRE assertions
+\definecolor{mtestapi-tertiary}{RGB}{199, 60, 0}       % Vibrant DARK Orange - Integer comparisons
+\definecolor{mtestapi-quaternary}{RGB}{251, 191, 36}   % Vibrant Gold/Yellow - Double comparisons
+\definecolor{mtestapi-quinary}{RGB}{239, 68, 68} 
+\definecolor{mtestapi-senary}{RGB}{249, 115, 22} 
+
+\lstdefinestyle{mtest}{
+  backgroundcolor=\color{mtest-codebg},
+  basicstyle=\ttfamily\small\color{mtest-codefg},
+  keywordstyle=\color{mtest-keywordcolor}\bfseries,
+  ndkeywordstyle=\color{mtestapi-primary}\bfseries,
+  stringstyle=\color{C-stringcolor},
+  commentstyle=\color{mtest-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=mtest-C,
+  literate={\%}{{{\%}}}1
+}
+
+% C++ style
+\definecolor{cpp-codebg}{rgb}{0.95, 0.95, 0.95}
+\definecolor{cpp-codefg}{rgb}{0.1, 0.1, 0.1}
+\definecolor{cpp-keywordcolor}{rgb}{0, 0, 0.7}
+\definecolor{cpp-commentcolor}{rgb}{0, 0.5, 0}
+\definecolor{cpp-stringcolor}{rgb}{0.5, 0, 0}
+
+\lstdefinestyle{cpp}{
+  backgroundcolor=\color{cpp-codebg},
+  basicstyle=\ttfamily\small\color{cpp-codefg},
+  keywordstyle=\color{cpp-keywordcolor}\bfseries,
+  stringstyle=\color{cpp-stringcolor},
+  commentstyle=\color{cpp-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=C++
+}
+
+% C# style
+\definecolor{csharp-codebg}{rgb}{0.95, 0.95, 0.95}
+\definecolor{csharp-codefg}{rgb}{0.1, 0.1, 0.1}
+\definecolor{csharp-keywordcolor}{rgb}{0, 0, 0.7}
+\definecolor{csharp-commentcolor}{rgb}{0, 0.5, 0}
+\definecolor{csharp-stringcolor}{rgb}{0.5, 0, 0}
+
+\lstdefinestyle{csharp}{
+  backgroundcolor=\color{csharp-codebg},
+  basicstyle=\ttfamily\small\color{csharp-codefg},
+  keywordstyle=\color{csharp-keywordcolor}\bfseries,
+  stringstyle=\color{csharp-stringcolor},
+  commentstyle=\color{csharp-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=[Sharp]C
+}
+
+\lstdefinestyle{sql}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small\color{codefg},
+  keywordstyle=\color{keywordcolor}\bfseries,
+  stringstyle=\color{stringcolor},
+  commentstyle=\color{commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=SQL
+}
+
+% Bash colors
+\definecolor{bash-codebg}{RGB}{40,40,40}        % Dark background
+\definecolor{bash-codefg}{RGB}{220,220,220}      % Light foreground
+\definecolor{bash-keywordcolor}{RGB}{255,130,80} % Orange keywords
+\definecolor{bash-commentcolor}{RGB}{130,130,130}% Gray comments
+\definecolor{bash-stringcolor}{RGB}{80,200,120}  % Green strings
+\definecolor{bash-varcolor}{RGB}{100,180,255}    % Blue for variables/builtins
+
+% Define Bash language
+\lstdefinelanguage{Bash}{
+  keywords={if, then, else, elif, fi, for, in, do, done, while, until, case, esac, function, select, time, coproc},
+  keywordstyle=\color{bash-keywordcolor}\bfseries,
+  ndkeywords={echo, printf, read, exit, return, local, export, source, eval, exec, set, unset, shift, trap, wait, cd, pwd, test, true, false},
+  ndkeywordstyle=\color{bash-varcolor}\bfseries,
+  sensitive=true,
+  comment=[l]{\#},
+  commentstyle=\color{bash-commentcolor}\itshape,
+  stringstyle=\color{bash-stringcolor},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+  identifierstyle=\color{bash-codefg},
+  literate=
+    {|}{{\textcolor{bash-keywordcolor}{|}}}1
+    {>}{{\textcolor{bash-keywordcolor}{>}}}1
+    {<}{{\textcolor{bash-keywordcolor}{<}}}1
+    {>>}{{\textcolor{bash-keywordcolor}{>>}}}2
+    {&&}{{\textcolor{bash-keywordcolor}{\&\&}}}2
+    {||}{{\textcolor{bash-keywordcolor}{||}}}2
+    {;}{{\textcolor{bash-keywordcolor}{;}}}1
+}
+
+% Bash style
+\lstdefinestyle{bash}{
+  backgroundcolor=\color{bash-codebg},
+  basicstyle=\ttfamily\small\color{bash-codefg},
+  keywordstyle=\color{bash-keywordcolor}\bfseries,
+  stringstyle=\color{bash-stringcolor},
+  commentstyle=\color{bash-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=Bash
+}
+
+% HTML colors
+\definecolor{html-codebg}{RGB}{30,30,30}        
+\definecolor{html-codefg}{RGB}{240,240,240}
+\definecolor{html-keywordcolor}{RGB}{255,130,80}
+\definecolor{html-commentcolor}{RGB}{130,130,130}
+\definecolor{html-stringcolor}{RGB}{80,200,120} 
+\definecolor{html-attrcolor}{RGB}{100,180,255}  
+
+% Define HTML language
+\lstdefinelanguage{HTML}{
+  keywords={html, head, body, title, meta, link, script, style, div, span, p, a, img, form, input, button, ul, ol, li, table, tr, td, th, header, footer, nav, section, article, aside},
+  keywordstyle=\color{html-keywordcolor}\bfseries,
+  ndkeywords={class, id, href, src, alt, type, name, value, placeholder, disabled, required, onclick},
+  ndkeywordstyle=\color{html-attrcolor}\bfseries,
+  sensitive=true,
+  comment=[s]{<!--}{-->},
+  commentstyle=\color{html-commentcolor}\itshape,
+  stringstyle=\color{html-stringcolor},
+  morestring=[b]",
+  morestring=[b]',
+  identifierstyle=\color{html-codefg},
+  literate=
+    {<}{{\textcolor{html-keywordcolor}{<}}}1
+    {>}{{\textcolor{html-keywordcolor}{>}}}1
+    {/}{{\textcolor{html-keywordcolor}{/}}}1
+}
+
+% HTML style
+\lstdefinestyle{html}{
+  backgroundcolor=\color{html-codebg},
+  basicstyle=\ttfamily\small\color{html-codefg},
+  keywordstyle=\color{html-keywordcolor}\bfseries,
+  stringstyle=\color{html-stringcolor},
+  commentstyle=\color{html-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=HTML
+}
+
+
+
+
+
+
+% CSS colors
+\definecolor{css-codebg}{RGB}{30,30,30}         % Dark background
+\definecolor{css-codefg}{RGB}{240,240,240}      % Light foreground
+\definecolor{css-selectorcolor}{RGB}{80,200,120}% Green for selectors
+\definecolor{css-commentcolor}{RGB}{130,130,130}% Gray comments
+\definecolor{css-propcolor}{RGB}{100,180,255}   % Blue for properties
+\definecolor{css-valuecolor}{RGB}{255,130,80}   % Orange for values
+
+% Define CSS language
+\lstdefinelanguage{CSS}{
+  morekeywords={color, background, margin, padding, border, font, width, height, display, position, top, left, right, bottom, z-index, opacity, transform, transition, animation, flex, grid, text-align, font-size, line-height, box-sizing, overflow, cursor, visibility, white-space, word-wrap, text-decoration, font-weight, font-family, background-color, border-radius, box-shadow, text-shadow, justify-content, align-items, gap, flex-direction, font-style, letter-spacing, text-transform, background-image, border-color, border-width, border-style, min-width, max-width, min-height, max-height, content},
+  keywordstyle=\color{css-propcolor}\bfseries,
+  sensitive=false,
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{css-commentcolor}\itshape,
+  stringstyle=\color{css-stringcolor},
+  morestring=[b]",
+  morestring=[b]',
+  alsoletter={-},
+    literate={)}{}{1}
+           {:}{{\textcolor{css-codefg}{:}}}1
+           {;}{{\textcolor{css-codefg}{;}}}1
+}
+
+% CSS style with selector highlighting before braces
+\lstdefinestyle{css}{
+  backgroundcolor=\color{css-codebg},
+  basicstyle=\ttfamily\small\color{css-codefg},
+  keywordstyle=\color{css-propcolor}\bfseries,
+  commentstyle=\color{css-commentcolor}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=CSS,
+  moredelim=[is][\color{css-selectorcolor}]{\(}{\ \{},
+  moredelim=[is][\color{css-valuecolor}]{:}{;}
+}
+
+
+
+% Default listing style
+\lstset{
+  style=py,
+  captionpos=b
+}
+
+\lstnewenvironment{sourcecode}[1][]{
+  \lstset{
+    style=#1,
+    captionpos=b
+  }
+}{}
+
+\endinput
+%%
+%% End of file blockcoding.sty

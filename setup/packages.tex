@@ -1,0 +1,59 @@
+% used for graphical images
+\usepackage{graphicx} 
+
+% control sizes of content
+\usepackage{adjustbox}
+
+% used for more color control
+\usepackage{xcolor}
+
+% used to control drawings on the axses
+\usepackage{tikz}
+
+% Setup for text margin
+\usepackage[a4paper, margin=3cm]{geometry}
+
+% Better chapters 
+\usepackage{titlesec}
+
+% For more fanzy heading
+\usepackage{fancyhdr}
+
+% Comments 
+\usepackage{comment, chngpage, appendix, verbatim}
+
+% Bib setup
+\usepackage[backend=biber, bibencoding=utf8, sorting=none,]{biblatex}
+\addbibresource{references.bib}
+
+% Used for code snippets
+\usepackage{listings}
+
+% Use the palatino font
+\usepackage[sc]{mathpazo}
+\linespread{1.1} % set line spread for palatino font
+
+% Used to create hyperrefs, \href, bliver brugt meget til links man gerne vil have har en anden tekst
+\usepackage[hidelinks]{hyperref}
+\hypersetup{%
+	%pdfpagelabels=true,%
+	plainpages=false,%
+	pdfauthor={Author(s)},%
+	pdftitle={Title},%
+	pdfsubject={Subject},%
+	bookmarksnumbered=true,%
+	colorlinks=false,%
+	citecolor=black,%
+	filecolor=black,%
+	linkcolor=black,% you should probably change this to black before printing
+	urlcolor=black,%
+	pdfstartview=FitH%
+}
+
+% Make todo tables 
+\setlength{\marginparwidth}{2cm} % make sure todo tables fit
+\usepackage{todonotes}
+
+% an custom code snippet in latex
+\usepackage{assets/blockcoding}
+

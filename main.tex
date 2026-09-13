@@ -1,0 +1,37 @@
+\documentclass[11pt, a4paper]{report}
+\input{setup/packages}
+\input{setup/macros}
+
+
+\begin{document}
+%%%% HOW TO USE THIS TEMP %%%%
+\input{HowTo}
+
+%%%% Front Pages %%%%%
+\pagestyle{empty}
+\pagenumbering{roman} 
+\input{frontpage-setup/frontpage}
+\input{frontpage-setup/titlePage}
+\tableofcontents
+\input{frontpage-setup/preface}
+\cleardoublepage
+
+
+%%%% Page Setup %%%%
+\pagenumbering{arabic}
+\input{setup/header}
+
+%%%% Pages %%%%%
+\inputchapter{1-Introduction}{1}
+
+
+
+%%%% BIB TEXT SETUP %%%%%
+\printbibliography[heading=bibintoc, title=Bibliography] \label{bib:references.bib}
+\cleardoublepage
+
+%%%% Appendix %%%%%
+\pagenumbering{roman} 
+\appendix
+\input{chapters/appendix.tex}
+\end{document}

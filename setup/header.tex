@@ -1,0 +1,24 @@
+
+%%%% Header Build %%%%
+
+
+% Define a subtle color palette
+\definecolor{headercolor}{RGB}{60, 60, 60}     % Dark gray
+\definecolor{accentcolor}{RGB}{100, 100, 100}  % Medium gray
+
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+
+% Header setup
+\fancyhead[L]{\small\textcolor{headercolor}{\nouppercase{\leftmark}}}
+\fancyhead[R]{\small\textcolor{accentcolor}{\thepage}}
+
+% Ultra-thin rule for minimal look
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{accentcolor!50}\leaders\hrule height \headrulewidth\hfill}}
+
+% Clean footer
+\fancyfoot{}
+
+% Adjust spacing
+\setlength{\headheight}{14pt}

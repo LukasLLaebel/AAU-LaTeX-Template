@@ -1,0 +1,57 @@
+\chapter{How to use this template}
+\paragraph{Disclaimer!:}\textit{This template is inspired by the typst template created by \href{https://github.com/Naitsabot/AAU-Typst-Template}{Sebastian Lorenzen}}\\
+
+Remember to comment this file out in the main document.
+
+Use \% in front of \verb|\input{HowTo}|.
+
+Making comments can be done using \% or \verb|\begin{comment}| followed by an \\\verb|\end{comment}| where the comment need to end
+
+\section{Make a references.bib file}
+
+This document uses Zotero as its BibTeX method.
+
+
+\section{Navigation}
+This document is split in 6 parts, where 5 of them have its own folder.
+The folders have all its own purpose:
+\begin{itemize}
+    \item \textbf{assets:}
+        This is reserved for external libaries that is not build into LaTeX, Overleaf. Right now it has my own code box package.
+    \item \textbf{chapters:}
+        This is where the chapters is stored, with its own sections under each folder.
+    \item \textbf{figures:}
+        This folders purpose is to store figures, tables and stuff used in the report. 
+    \item \textbf{frontpage-setup:}
+        This area is reserved for the frontpage and basic start setup. Meaning frontpage, preface, titlepage and so on. It has its own img folder that include images used for the frontpage.
+    \item \textbf{setup}
+        This is area is where aau colors, definitions and things like the header is stored. As well as where you design your own commands (macros.tex) as well as where you add packages needed.
+        the file frontpage-defines.tex is where you input your group names, suppervisor and so on.
+\end{itemize}
+
+\section{Automated sections}
+\paragraph{Disclaimer!:}\textit{there is some issues with this it cannot go beyond 10 at this moment}
+
+Sometimes an it can be annoying that every time an section is created \\
+an \verb|\input{chapter1/section}| is needed. 
+
+An solution to this could be having the whole chapter in one file. 
+But in my opinion that does not use the file tree to its fullest.
+therefore my solution is to only input the chapter and then automatically input sections.
+
+\subsection{How it works}
+This is its own command that takes to inputs \\ 
+\verb|\inputchapter{name of folder}{chapter number}|
+
+I love to name the folders the name of the chapter and the chapter number like this: 
+\textbf{1-Introduciton} in reality it does not matter that much, but what that matters is the numbering on the sections.
+
+Each section file needs the first part to be chapter number then section number.
+\paragraph{example:} 1.1 intro.tex, 1.2 background.tex
+
+
+\section{Your own designing}
+There is a lot that can be changed and this can be a lot to comprehend, but i will just give you some of the small things that maybe could be something awesome. 
+
+\subsection{Chapters}
+Located in macros.tex is chapter formatting. Here the space between the text and chapter, space between top and chapter number, margin from left and space between chapter name and chapter number; be changed.

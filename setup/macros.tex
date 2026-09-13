@@ -1,0 +1,100 @@
+
+
+%%%% Chapter formatting %%%%
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries}
+    {\fontsize{24}{28}\selectfont Chapter \thechapter} {1.5cm} % Space between
+    {\fontsize{36}{42}\selectfont}
+
+\titlespacing*{\chapter}
+    {0pt}   % Left margin
+    {1cm}   % Space before chapter
+    {1.5cm}   % Space between title and text
+
+%%%% Page design %%%%
+\setlength{\parindent}{0pt} % remove paragraph indentation
+\setlength{\parskip}{1em}   % add vertical space between paragraphs
+
+
+%%%% Auto Chapter %%%%
+
+% --shell-escape
+\newcommand{\inputchapter}[2]{%
+    % Base folder for all chapters
+    \def\basefolder{chapters}%
+    % Run shell command to list files in numeric order
+    \immediate\write18{ls -1v \basefolder/#1/#2.*.tex > filelist.tmp}%
+    % Open the temporary file and loop through lines
+    \newread\filelist
+    \openin\filelist=filelist.tmp
+    \loop
+        \read\filelist to \filename
+        \unless\ifeof\filelist
+        \input{\filename}%
+    \repeat
+    \closein\filelist
+}
+
+
+%%%% Auto Preface %%%%
+\ExplSyntaxOn
+\seq_new:N \l__group_members_seq
+\int_new:N \l__group_member_count_int
+
+% Define one member
+\NewDocumentCommand{\member}{mm}
+{
+    \seq_put_right:Nn \l__group_members_seq
+    {
+        \begin{minipage}[b]{0.45\textwidth}
+            \centering
+            \rule{\textwidth}{0.45pt}\\
+            #1\\
+            {\footnotesize #2}
+        \end{minipage}
+    }
+}
+
+% Define the complete member section
+\NewDocumentEnvironment{members}{}{\seq_clear:N \l__group_members_seq}
+{
+    \int_set:Nn
+        \l__group_member_count_int
+        {\seq_count:N \l__group_members_seq}
+    \vspace{3em}
+    \vspace{3cm}
+    \vfill
+    \noindent
+
+    % Complete pairs
+    \int_step_inline:nn
+    {
+        \int_div_truncate:nn
+            {\l__group_member_count_int}
+            {2}
+    }
+    {
+        \seq_item:Nn
+            \l__group_members_seq
+            {\int_eval:n {2 * ##1 - 1}}
+        \hfill
+        \seq_item:Nn
+            \l__group_members_seq
+            {\int_eval:n {2 * ##1}}
+
+        \par
+        \vspace{3\baselineskip}
+    }
+
+    % Remaining member if the number is odd
+    \int_if_odd:nT {\l__group_member_count_int}
+    {
+        \begin{center}
+            \seq_item:Nn
+                \l__group_members_seq
+                {\l__group_member_count_int}
+        \end{center}
+    }
+}
+
+\ExplSyntaxOff
