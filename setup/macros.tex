@@ -16,15 +16,25 @@
 \setlength{\parskip}{1em}   % add vertical space between paragraphs
 
 
-%%%% Auto Chapter %%%%
+%%%% Custom Comment %%%%%
+% uses pdfcomment
+\newcommand{\showcomment}[3][]{%
+  \pdfmarkupcomment[%
+    markup=Underline,       % underline the text
+    color=blue,            % highlight color
+    author={#1},             % optional author name
+    opacity=0.4,             % how strong the yellow looks (0–1)
+    subject={Comment},       % shows up as title in popup
+    open=false               % popup starts closed (click to open)
+  ]{#3}{#2}%
+}
+% example:
+% \showcomment[Lukas]{The comment}{The text you want to comment}
 
-% --shell-escape
+%%%% Auto Chapter %%%%
 \newcommand{\inputchapter}[2]{%
-    % Base folder for all chapters
     \def\basefolder{chapters}%
-    % Run shell command to list files in numeric order
     \immediate\write18{ls -1v \basefolder/#1/#2.*.tex > filelist.tmp}%
-    % Open the temporary file and loop through lines
     \newread\filelist
     \openin\filelist=filelist.tmp
     \loop
